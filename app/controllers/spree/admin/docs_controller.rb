@@ -14,7 +14,7 @@ module Spree
         end
 
         def load_data
-          @product = Product.where(:permalink => params[:product_id]).first
+          @product = Product.where(slug: params[:product_id]).first
           @variants = @product.variants.collect do |variant|
             [variant.options_text, variant.id]
           end
