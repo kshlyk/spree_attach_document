@@ -1,12 +1,15 @@
 module Spree
 class Doc < Asset
-  validate :no_attachment_errors
+  # validate :no_attachment_errors
+  # do_not_validate_attachment_file_type :attachment
 
    # attr_accessible :alt, :attachment, :position, :viewable_type, :viewable_id
 
   has_attached_file :attachment,
                     :url => "/spree/docs/products/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/spree/docs/products/:id/:style/:basename.:extension"
+
+  validates_attachment_content_type :attachment, :content_type => [ "application/msword","application/vnd.ms-excel","application/pdf" ]
 
   before_post_process :skip_thumbnail_creation
 
